@@ -2,68 +2,115 @@
 
 ### A village that remembers you.
 
-An HD-2D living-village prototype built in Unreal Engine 5. Talk to villagers in free text, help with their work, and see
-how memories, gossip and personal opinions shape your next encounter.
+**VillageSim** is an HD-2D living-village prototype built in Unreal Engine 5: pixel-art characters in a lit 3D world,
+with free-text conversations powered by a local language model.
 
-**Status: early development.** The current prototype has two active villagers and a playable foundation for conversation,
-daily life and social consequences. Visuals and dialogue reliability are still being refined.
+**In development · C++ · Unreal Engine 5 · Python · Ollama**
 
-![The village plaza in the current development build](media/village-day.png)
+Two villagers live here today: Garrick the blacksmith and Elder Maren. Their routines, needs, moods and memories shape
+how they respond to the player. The goal is a small village whose people have lives beyond the conversation box.
 
-## What happens in the village?
+## Watch the prototype
 
-You arrive as a stranger. Garrick, the blacksmith, and Elder Maren have their own routines, temperaments and concerns.
-What you say can make one grateful, hurt, wary or angry. What you do can become a memory—and something another villager
-hears about later.
+### Ask for directions, then follow the villager
 
-The aim is a small place whose people feel like they have lives beyond the conversation box.
+![Maren walks the player through the village toward the forge](media/guide.gif)
 
-## Working in the prototype
+Maren accepts a request to show the way to the forge, sets off, and leads the player there. This is a walking excerpt;
+the full capture includes the request and arrival. The game decides whether a villager agrees to help.
 
-- **Free-text conversations** powered by a local language model.
-- **Persistent memories and gossip:** villagers remember interactions and pass news between themselves.
-- **Daily lives:** work, meals, sleep, moods, and reactions that differ with personality and relationships.
-- **Beliefs about the player:** villagers reflect on memories overnight; their opinions influence later behaviour.
-- **Initiative:** villagers can approach the player, bring up earlier events, and end conversations themselves.
-- **A small gameplay loop:** gathering, chores, trade, sleep and persistent saves.
-- **An HD-2D world:** pixel-art characters in a lit 3D village, with a day/night cycle, enterable buildings and camera-aware
-  building fades that keep the player visible.
+[Full guide capture — MP4](media/guide.mp4)
 
-![The same village in the evening](media/village-evening.png)
+### Talk in your own words
 
-## How it is being built
+![The player introduces themselves and asks about work; Garrick responds in the dialogue box](media/conversation.gif)
 
-The project combines **Unreal Engine C++** with **local language-model inference through Ollama**. Game systems own world
-state and mechanical outcomes; language models interpret player text and express the villagers' responses.
+The player introduces themselves as Rowan and says they are looking for work. Garrick responds through the local model,
+and the game's job offer appears with Accept and Decline buttons. Dialogue is generated, while the job and its outcomes
+come from game state.
 
-Personality, needs, mood and relationships drive general behaviour rules. The direction is to make NPC abilities
-extensible, so new gameplay features can give villagers more freedom through a shared capability interface. That
-interface is planned; it is not yet implemented.
+[Full conversation capture — MP4](media/conversation.mp4)
 
-Development uses deterministic rule tests, C++/Python parity checks, in-engine regression tests and model evaluations.
-The evaluation system is being strengthened to check meaning and expected behaviour across varied conversations.
+### Agree on a price, then make the trade
 
-## Current focus
+![Maren quotes bread at two coins and the player accepts; the inventory and coin count change](media/trade.gif)
 
-- Make dialogue consistently agree with current world facts and executable abilities.
-- Turn accepted shared activities into real actions in the world.
-- Improve conversation flow and evaluate a wider range of player behaviour.
-- Develop richer relationships between villagers after the immediate playtest fixes.
+Maren quotes one loaf of bread at **2 coins**. Accepting the quote transfers the bread and updates the player's inventory
+and coins in the HUD. The transaction is executed and verified by the game.
 
-These are development goals, rather than a list of finished features. The prototype still produces occasional incorrect
-claims, and some requests cannot yet be carried out. There is no public playable release at this stage.
+[Full purchase capture — MP4](media/trade.mp4)
+
+### Stay visible behind buildings
+
+![Building geometry fades as the player walks behind the forge](media/building-fade.gif)
+
+Building geometry fades when it blocks the camera's view of the player. Collision remains solid, and buildings restore
+their materials when clear. Interior cutaways are handled separately.
+
+[Full building-fade capture — MP4](media/building-fade.mp4)
 
 <details>
-<summary>Recent work: keeping the player visible</summary>
+<summary>About these captures</summary>
 
-Buildings now fade when they block the camera's view of the player, then restore when the player moves clear. Their walls
-remain solid and continue casting shadows. Interior roof cutaways still work separately.
+These are actual development-build captures, recorded on November 17, 2026. A temporary village save and development
+controls stage locations, time of day and player input. Dialogue comes from the local Llama 3.2 3B model; it is not
+written over the footage. NPC movement, job offers and inventory transfers run through the game's existing systems.
 
-![A building fading to reveal the player behind it](media/player-visibility.png)
+GIFs are excerpts at recorded speed; the MP4s retain the full takes. Editor chrome is cropped out. Capture overhead can
+reduce the frame rate, particularly in the dialogue clips. These recordings demonstrate selected working interactions,
+not a finished game or a guarantee that every conversation succeeds.
 
 </details>
 
+## Screenshots
+
+Click an image to view it at full resolution.
+
+| A conversation with Garrick | A purchase quote from Maren |
+|:---:|:---:|
+| [![Garrick's dialogue and a job offer](media/thumb-conversation.png)](media/conversation.png) | [![Maren quotes bread with Accept and Decline buttons](media/thumb-trade-quote.png)](media/trade-quote.png) |
+| **Inside the tavern** | **Evening in the village** |
+| [![The tavern interior with its roof cut away](media/thumb-tavern-interior.png)](media/tavern-interior.png) | [![The village after dark with illuminated windows and lamps](media/thumb-village-night.png)](media/village-night.png) |
+
+More stills: [completed purchase](media/trade-complete.png) · [the forge yard](media/forge-yard.png) ·
+[building fade](media/building-fade.png).
+
+## What is working today?
+
+- **Free-text conversations** with two villagers, running through a local model.
+- **Persistent memories and gossip:** interactions can be remembered and passed between villagers.
+- **Daily lives:** work, meals, sleep, moods and reactions influenced by personality and relationships.
+- **Overnight reflection:** villagers form beliefs about the player from their memories.
+- **Initiative:** villagers can approach the player, bring up past events and end conversations themselves.
+- **A small gameplay loop:** gathering, chores, trade, sleep and persistent saves.
+- **Basic shared activities:** including the guided walk shown above.
+- **An HD-2D village:** day/night lighting, enterable buildings, interior cutaways and camera-aware building fades.
+
+## Engineering behind it
+
+**The game owns the state.** Unreal C++ systems control trust, inventory, quests and simulation outcomes. Local language
+models interpret player text and phrase responses. Structured outputs and grounding guards constrain replies, but do
+not yet catch every semantic mistake.
+
+**Behaviour comes from general rules.** Personality, values, needs, mood and history influence choices. The direction is
+greater NPC freedom through an extensible capability interface, with the game validating proposed actions. That broader
+interface is still planned; the shared activities shown here are an initial implementation.
+
+**Persistence and evaluation are part of the prototype.** Saves use journaled multi-file transactions with interruption
+recovery. Development includes deterministic rule tests, C++/Python parity checks, in-engine UI/regression tests and model
+behaviour evaluations. Four local models were compared across 1,252 conversation turns, measuring behaviour, latency and
+GPU memory; the smaller baseline was retained because the larger models did not establish an overall quality win.
+
+## What still needs work?
+
+This is an early prototype with **two active villagers**, unfinished art and interaction UI, and no public playable
+release yet. Dialogue can still confuse facts, the source of a memory, or promises beyond the NPC's actual abilities.
+The existing evaluations also have semantic blind spots.
+
+Current work focuses on keeping dialogue consistent with current world state, making more accepted requests executable,
+and evaluating meaning across varied player behaviour. Richer relationships between villagers come after those basics.
+
 ## About this repository
 
-This is the public project showcase: an overview and selected development screenshots. The implementation repository
-remains private. All screenshots show the actual prototype; this page will evolve as the game develops.
+This is the public showcase for VillageSim / Thornwick. It contains selected gameplay captures and project notes.
+The implementation repository remains private.
