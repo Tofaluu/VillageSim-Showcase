@@ -12,53 +12,34 @@ how they respond to the player. The goal is a small village whose people have li
 
 ## Watch the prototype
 
-### Ask for directions, then follow the villager
+### Take a job at the forge
 
-![Maren walks the player through the village toward the forge](media/guide.gif)
+[![The player crosses the plaza, asks Garrick for work, and accepts his iron ore job](media/forge-job.gif)](media/forge-job.mp4)
 
-Maren accepts a request to show the way to the forge, sets off, and leads the player there. This is a walking excerpt;
-the full capture includes the request and arrival. The game decides whether a villager agrees to help.
+Walk up to Garrick and ask for work in your own words. He offers a job to bring iron ore, and accepting it adds the
+chore to the village's quest state. [Full capture (MP4)](media/forge-job.mp4)
 
-[Full guide capture — MP4](media/guide.mp4)
+### After dark at the tavern
 
-### Talk in your own words
+[![The player approaches the lantern-lit terrace where Maren and Garrick are talking](media/tavern-after-dark.gif)](media/tavern-after-dark.mp4)
 
-![The player introduces themselves and asks about work; Garrick responds in the dialogue box](media/conversation.gif)
+Maren and Garrick spend part of the evening on the terrace. As you approach, their conversation appears in speech bubbles.
+[Full capture (MP4)](media/tavern-after-dark.mp4)
 
-The player introduces themselves as Rowan and says they are looking for work. Garrick responds through the local model,
-and the game's job offer appears with Accept and Decline buttons. Dialogue is generated, while the job and its outcomes
-come from game state.
+### A visit after bedtime
 
-[Full conversation capture — MP4](media/conversation.mp4)
+[![The player walks into Maren's cottage. The roof cuts away, revealing Maren asleep on her bed.](media/maren-bedtime.gif)](media/maren-bedtime.mp4)
 
-### Agree on a price, then make the trade
-
-![Maren quotes bread at two coins and the player accepts; the inventory and coin count change](media/trade.gif)
-
-Maren quotes one loaf of bread at **2 coins**. Accepting the quote transfers the bread and updates the player's inventory
-and coins in the HUD. The transaction is executed and verified by the game.
-
-[Full purchase capture — MP4](media/trade.mp4)
-
-### Stay visible behind buildings
-
-![Building geometry fades as the player walks behind the forge](media/building-fade.gif)
-
-Building geometry fades when it blocks the camera's view of the player. Collision remains solid, and buildings restore
-their materials when clear. Interior cutaways are handled separately.
-
-[Full building-fade capture — MP4](media/building-fade.mp4)
+Walk into Maren's cottage late at night. The roof cuts away, and you can see her asleep on her bed.
+[Full capture (MP4)](media/maren-bedtime.mp4) ? [Still frame](media/maren-bedtime.png)
 
 <details>
-<summary>About these captures</summary>
+<summary>How these were recorded</summary>
 
-These are actual development-build captures, recorded on November 17, 2026. A temporary village save and development
-controls stage locations, time of day and player input. Dialogue comes from the local Llama 3.2 3B model; it is not
-written over the footage. NPC movement, job offers and inventory transfers run through the game's existing systems.
-
-GIFs are excerpts at recorded speed; the MP4s retain the full takes. Editor chrome is cropped out. Capture overhead can
-reduce the frame rate, particularly in the dialogue clips. These recordings demonstrate selected working interactions,
-not a finished game or a guarantee that every conversation succeeds.
+Captured from the current development build at normal playback speed. Each clip is a continuous take. A separate
+capture save sets the starting hour and position, then input automation walks the player and submits lines through
+the game's dialogue UI. NPC actions, dialogue, and lighting come from the running game. The GIFs are excerpts
+and the linked 30 fps MP4s show each full take.
 
 </details>
 
@@ -83,7 +64,7 @@ More stills: [completed purchase](media/trade-complete.png) · [the forge yard](
 - **Overnight reflection:** villagers form beliefs about the player from their memories.
 - **Initiative:** villagers can approach the player, bring up past events and end conversations themselves.
 - **A small gameplay loop:** gathering, chores, trade, sleep and persistent saves.
-- **Basic shared activities:** including the guided walk shown above.
+- **Basic shared activities:** villagers can agree to guide the player, share a meal or wait.
 - **An HD-2D village:** day/night lighting, enterable buildings, interior cutaways and camera-aware building fades.
 
 ## Engineering behind it
