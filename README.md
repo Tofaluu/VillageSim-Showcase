@@ -39,14 +39,14 @@ schedule transitions run in deterministic C++ subsystems driven by hot-reloadabl
 schema-constrained and checked by grounding guards before reaching the UI.
 
 ```mermaid
-flowchart LR
-    Player["Player Input (Enhanced Input / C++ UMG Box)"] --> Char["AVillageCharacter (Paper2D, Camera, Bubbles)"]
-    Char --> Dial["UVillageDialogueSubsystem (Priority Queue & Guards)"]
-    Dial <--> Ollama["Local Ollama (llama3.2:3b, single num_ctx)"]
-    Dial --> Rules["Deterministic C++ Subsystems (Life, Memory, Quests, Inventory, Gossip)"]
-    Rules --> Life["FVillageLife Core (Needs, Moods, Values, Utility AI)"]
-    Life --> Nav["UVillageScheduleComponent (NavMesh & Poses)"]
-    Rules --> Save["VillageSave (Journaled Multi-File Transactions)"]
+flowchart TD
+    Player["Player Input<br/>Enhanced Input · C++ UMG Box"] --> Char["AVillageCharacter<br/>Paper2D · Camera · Bubbles"]
+    Char --> Dial["UVillageDialogueSubsystem<br/>Priority Queue · Grounding Guards"]
+    Dial <--> Ollama["Local Ollama<br/>llama3.2:3b · single num_ctx"]
+    Dial --> Rules["Deterministic C++ Subsystems<br/>Memory · Quests · Inventory · Gossip"]
+    Rules --> Life["FVillageLife Core<br/>Needs · Moods · Values · Utility AI"]
+    Life --> Nav["UVillageScheduleComponent<br/>NavMesh · Furniture Poses"]
+    Rules --> Save["VillageSave<br/>Journaled Transactions"]
 ```
 
 ### UE5 & C++ Engineering Highlights
