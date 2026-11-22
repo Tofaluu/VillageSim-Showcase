@@ -28,7 +28,7 @@ change**, while the local model only interprets player text and phrases dialogue
 
 > **[Gameplay Video Placeholder — Live Playthrough Coming Soon]**
 >
-> *Drop a GitHub-hosted video link or `media/gameplay-demo.mp4` here.*
+> 
 
 ---
 
