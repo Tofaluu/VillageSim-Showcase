@@ -14,21 +14,39 @@ change**, while the local model only interprets player text and phrases dialogue
 
 ---
 
-## Gameplay Demo
+## Gameplay Captures
 
-<!-- TODO: Record a 30–60 s manual playtest video (OBS / Win+G) and either:
-     1) Drag-and-drop the MP4 directly into GitHub's README editor so GitHub renders an inline video player, OR
-     2) Save it as media/gameplay-demo.mp4 and link it below.
+<!-- TODO (optional): Drop a 30–60 s manual video capture (OBS / Win+G) straight into GitHub's README editor when ready. -->
 
-     Suggested 45 s take:
-     - Walk through the plaza in daytime (show building occlusion fade + stepping inside a building for interior cutaway)
-     - Talk to Garrick or Elder Maren in free text (show typewriter text, retro blips/barks, and action buttons)
-     - Show evening/night lighting and an overheard NPC speech bubble
--->
+### Free-text conversation at the forge
 
-> **[Gameplay Video Placeholder — Live Playthrough Coming Soon]**
->
-> 
+![Free-text dialogue with Garrick the blacksmith using the pixel JRPG dialogue box and local LLM replies](media/forge-conversation.gif)
+
+Ask Garrick about his trade in your own words. Game systems decide what he stocks and cares about while the local
+model phrases his reply with typewriter reveal and procedural audio blips/barks.
+
+### Trade list & price quote with Elder Maren
+
+![Selecting bread in Elder Maren's Buy list and receiving a trust-priced quote with Accept and Decline buttons](media/trade-quote.gif)
+
+Item panels, quantities, and trust-adjusted price quotes come straight from deterministic C++ trade rules (`Accept` and
+`Decline` resolve the transaction without letting the model invent prices).
+
+---
+
+## Screenshots
+
+Click any image to view it at full 1080p resolution.
+
+| Daytime movement in the plaza | Evening walk by lantern light |
+|:---:|:---:|
+| [![The player running across the cobblestone plaza by day](media/thumb-village-day.png)](media/village-day.png) | [![Walking past the lanterns as dusk settles over Thornwick](media/thumb-village-evening.png)](media/village-evening.png) |
+| **Inside the tavern (roof cutaway)** | **Bedtime inside Elder Maren's cottage** |
+| [![The tavern interior with its roof and front wall cut away](media/thumb-tavern-interior.png)](media/tavern-interior.png) | [![Visiting Elder Maren's cottage at night as she sleeps on her bed](media/thumb-cottage-bedtime.png)](media/cottage-bedtime.png) |
+
+More 1080p stills: [nighttime square](media/village-night.png) · [camera building fade](media/building-fade.png) ·
+[forge conversation](media/conversation.png) · [blacksmith buy list](media/trade-buy.png) ·
+[bread price quote](media/trade-quote.png).
 
 ---
 
@@ -79,54 +97,6 @@ Measured on a Win64 Development build (RTX 5060 Ti, `llama3.2:3b` via local Olla
 
 ---
 
-## Earlier Development Captures
-
-*Automated continuous-take captures from the development build (before the UI readability and audio pass). Click any
-clip for the full 30 fps MP4.*
-
-### Take a job at the forge
-
-[![The player crosses the plaza, asks Garrick for work, and accepts his iron ore job](media/forge-job.gif)](media/forge-job.mp4)
-
-Walk up to Garrick and ask for work in your own words. He offers a job to bring iron ore, and accepting it adds the
-chore to the village's quest state. [Full capture (MP4)](media/forge-job.mp4)
-
-### After dark at the tavern
-
-[![The player approaches the lantern-lit terrace where Maren and Garrick are talking](media/tavern-after-dark.gif)](media/tavern-after-dark.mp4)
-
-Maren and Garrick spend part of the evening on the terrace. As you approach, their conversation appears in speech
-bubbles. [Full capture (MP4)](media/tavern-after-dark.mp4)
-
-### A visit after bedtime
-
-[![The player walks into Maren's cottage. The roof cuts away, revealing Maren asleep on her bed.](media/maren-bedtime.gif)](media/maren-bedtime.mp4)
-
-Walk into Maren's cottage late at night. The roof cuts away, and you can see her asleep on her bed.
-[Full capture (MP4)](media/maren-bedtime.mp4) · [Still frame](media/maren-bedtime.png)
-
-<!-- TODO (optional): Add a second manual clip showing free-text conversation + audio/UI readability
-### Free-text conversation & UI
-> **[Optional Video Placeholder — Dialogue & Sound]**
--->
-
----
-
-## Screenshots
-
-Click any image to view it at full resolution.
-
-| A conversation with Garrick | A purchase quote from Maren |
-|:---:|:---:|
-| [![Garrick's dialogue and a job offer](media/thumb-conversation.png)](media/conversation.png) | [![Maren quotes bread with Accept and Decline buttons](media/thumb-trade-quote.png)](media/trade-quote.png) |
-| **Inside the tavern** | **Evening in the village** |
-| [![The tavern interior with its roof cut away](media/thumb-tavern-interior.png)](media/tavern-interior.png) | [![The village after dark with illuminated windows and lamps](media/thumb-village-night.png)](media/village-night.png) |
-
-More stills: [completed purchase](media/trade-complete.png) · [the forge yard](media/forge-yard.png) ·
-[building fade](media/building-fade.png).
-
----
-
 ## What Works Today
 
 - **Free-text conversations** with two villagers (Garrick the blacksmith and Elder Maren) via a local LLM.
@@ -140,9 +110,9 @@ More stills: [completed purchase](media/trade-complete.png) · [the forge yard](
 
 ## Current Focus
 
-- **Single C++ simulation core:** retiring the Python test mirror so headless suites run directly against the C++
-  `FVillageLife` core.
-- **Expanding the village & core loop:** adding the village go-between commission loop (carrying messages and orders
-  that the player can relay faithfully or bend) and expanding the cast beyond two villagers.
+- **Conversation reliability & memory grounding:** moving from model-written memory summaries to game-owned verbatim
+  memory records and acquaintance briefs before expanding the cast.
+- **Single C++ simulation core:** retiring the Python test mirrors so headless suites run directly against the C++
+  simulation cores.
 - **Known prototype limits:** two active villagers today, no public playable release yet, and ongoing work to tighten
   semantic grounding on edge-case replies.
